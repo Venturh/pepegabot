@@ -116,10 +116,10 @@ function emote(msg: Message) {
   });
   console.log(msg.content);
 
-  if (test.length === 1 && msg.content[0] === ":")
+  if (test.length === 1 && msg.content[0] === ":") {
     msg.channel.send(`${bot.emojis.cache.get(test[0].emote.id)}`);
     msg.delete();
-  else {
+  } else {
     let msgs = msg.content;
     const alreadyIn = [];
     test.forEach((t) => {
