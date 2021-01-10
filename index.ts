@@ -30,14 +30,6 @@ const db = new Database();
 
 bot.login(process.env.BOT_TOKEN);
 
-bot.on("ready", () => {
-  console.log("ready");
-  bot.user.setPresence({
-    activity: { name: `${bot.users.cache.size} Pepegas`, type: "WATCHING" },
-    status: "online",
-  });
-});
-
 bot.on("message", async (msg) => {
   if (msg.author.bot) return;
   let content = msg.content.substring(PREFIX.length).split(" ");
