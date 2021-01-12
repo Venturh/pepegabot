@@ -109,7 +109,9 @@ function emote(msg: Message) {
   console.log(msg.content);
 
   if (test.length === 1 && msg.content[0] === ":") {
-    msg.channel.send(`${bot.emojis.cache.get(test[0].emote.id)}`);
+    const emote = bot.emojis.cache.get(test[0].emote.id);
+    if (!emote) return;
+    msg.channel.send(`${emote}`);
     msg.delete();
   } else {
     let msgs = msg.content;
@@ -121,11 +123,10 @@ function emote(msg: Message) {
       ) {
         same = true;
       } else if (t.emote !== undefined && !alreadyIn.includes(t.name)) {
-        msgs = replaceAll(
-          msgs,
-          `:${t.name}:`,
-          bot.emojis.cache.get(t.emote.id) as any
-        );
+        const emote = bot.emojis.cache.get(t.emote.id);
+        if (emote) {
+          msgs = replaceAll(msgs, `:${t.name}:`, emote as any);
+        }
 
         alreadyIn.push(t.name);
       }
