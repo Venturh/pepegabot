@@ -32,7 +32,13 @@ bot.login(process.env.BOT_TOKEN);
 
 bot.on("message", async (msg) => {
   if (msg.author.bot) return;
+  if (msg.content[0] === PREFIX) handlePrefixMsg(msg);
+  else emote(msg);
+});
+
+async function handlePrefixMsg(msg: Message) {
   let content = msg.content.substring(PREFIX.length).split(" ");
+  console.log("bot.on ~ content", content);
   switch (content[0]) {
     case "add":
       if (content[1] && content[2]) {
@@ -75,8 +81,7 @@ bot.on("message", async (msg) => {
     default:
       break;
   }
-  emote(msg);
-});
+}
 
 const addImage = async (id: string, url: string) => {
   if ((await db.get(id)) !== null) throw new Error();
