@@ -38,7 +38,6 @@ bot.on("message", async (msg) => {
 
 async function handlePrefixMsg(msg: Message) {
   let content = msg.content.substring(PREFIX.length).split(" ");
-  console.log("bot.on ~ content", content);
   switch (content[0]) {
     case "add":
       if (content[1] && content[2]) {
@@ -99,6 +98,7 @@ const listImages = async () => {
 };
 
 function emote(msg: Message) {
+  console.log("emote ~ msg", msg);
   let same = false;
   const patt = /:\w+:/g;
   var result = msg.content.match(patt);
@@ -111,10 +111,11 @@ function emote(msg: Message) {
     });
     return { name, emote: emote };
   });
-  console.log(msg.content);
-
+  console.log("test ~ test", test);
+  if (test[0].emote === undefined) return;
   if (test.length === 1 && msg.content[0] === ":") {
     const emote = bot.emojis.cache.get(test[0].emote.id);
+
     if (!emote) return;
     msg.channel.send(`${emote}`);
     msg.delete();
